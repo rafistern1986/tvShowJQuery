@@ -16,7 +16,7 @@ $(document).ready(function () {
     if ($(".theListOfShows").html() == "") {
         $("#ulWraper").hide()
     } else {
-        $("#ulWraper").show()
+        $("#ulWraper").slideDown(500)
 
     }
 })
@@ -77,7 +77,7 @@ $(document).ready(function () {
 
 /*details of the new tv show just entered*/
 function newTvShowDetails() {
-    $("#ulWraper").show()
+    $("#ulWraper").slideDown(500);
     var name = $(".addTvShow input:nth(0)").val();;
     var season = $(".addTvShow select:nth(0)").val();
     var episode = $(".addTvShow select:nth(1)").val();
