@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div class="pageWraper">
+        <div class="topLine">
+            <div></div>
+            <div></div>
+            <div>
+                <h1 id="webSiteHedding">myTVshows<span id="smallFont">.com</span></h1>
+            </div>
+            <div></div>
+            <div>
+                <input type="text" id="searchWords" placeholder="search for TV show">
+            </div>
+        </div>
+        <div class="addTvShow">
+            <input class="newTvShowInfo" type="text" placeholder="enter TV show name" autofocus>
+            <select class="newTvShowInfo">
+                <option selected disabled>Season</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+
+            </select>
+            <select class="newTvShowInfo">
+                <option selected disabled>Episod</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>14</option>
+                <option>15</option>
+                <option>16</option>
+                <option>17</option>
+                <option>18</option>
+                <option>19</option>
+                <option>20</option>
+                <option>21</option>
+                <option>22</option>
+                <option>23</option>
+                <option>24</option>
+                <option>25</option>
+                <option>26</option>
+                <option>27</option>
+                <option>28</option>
+                <option>29</option>
+                <option>30</option>
+            </select>
+            <select class="newTvShowInfo">
+                <option selected disabled>Score</option>
+                <option>1 star</option>
+                <option>2 stars</option>
+                <option>3 stars</option>
+                <option>4 stars</option>
+                <option>5 stars</option>
+
+            </select>
+            <input class="newTvShowInfo" type="submit" value="add" id="addButton" disabled>
+        </div>
+        <div class="listWraper">
+            <div></div>
+            <div id="ulWraper">
+                <div class="title">
+                    <div class="flex1">Name</div>
+                    <div class="flex1">Season</div>
+                    <div class="flex1">Episod</div>
+                    <div class="flex1">Score</div>
+                    <div class="flex1"></div>
+                    <div class="flex1">
+                        <select class="sortListBy">
+                            <option selected disabled>Sort list by:&nbsp;</option>
+                            <option value="aFirst">a - z</option>
+                            <option value="zFirst">z - a</option>
+                            <option>season</option>
+                            <option>episode</option>
+                            <option>score</option>
+                            <option value="newest">newest first</option>
+                            <option value="oldest">oldest first</option>
+
+                        </select>
+                    </div>
+                </div>
+                <ul class="theListOfShows"></ul>
+            </div>
+            <div></div>
+        </div>
+        <div class="theMinusButton">-</div>
+        <div class="thePlusButton">+</div>
+
+    </div>
+</body>
+
+</html>
