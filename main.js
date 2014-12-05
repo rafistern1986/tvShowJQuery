@@ -13,6 +13,8 @@ $(document).ready(function () {
 })
 
 $(document).ready(function () {
+
+
     if ($(".theListOfShows").html() == "") {
         $("#ulWraper").hide()
     } else {
@@ -27,6 +29,7 @@ function TvShowObject(name, season, episode, score) {
     this.season = season;
     this.episode = episode;
     this.score = score;
+
     this.id = new Date().getTime();
 };
 
@@ -40,6 +43,7 @@ function TvShowObject1(name, season, episode, score) {
 /*the +/- button (to open/close area of adding new tv show)*/
 $(document).ready(function () {
     $(".thePlusButton, .theMinusButton").click(function () {
+        $(".newTvShowInfo").css("backgroundColor", "white")
         tooglePlusMinus_toggleAddingNewShow();
     })
 });
@@ -52,16 +56,41 @@ function tooglePlusMinus_toggleAddingNewShow() {
     $(".addTvShow input:nth(0)").focus();
 }
 
-/*when clicked to ad a tv show*/
+/*when clicked to ad a tv show wit valitation*/
 $(document).ready(function () {
-    $(".addTvShow input:nth(1)").on("click", newTvShowDetails);
+    $(".addTvShow input:nth(1)").on("click",
+        function () {
+            var filledOrNot = false;
+            $(".newTvShowInfo").each(function () {
+                if ($(this).val() == "" || $(this).val() == null) {
+                    filledOrNot = true;
+                    $(this).css("backgroundColor", "red")
+                }
+            })
+            if (filledOrNot == false) {
+                $(".newTvShowInfo").css("backgroundColor", "white")
+                newTvShowDetails()
+            }
+        }
+    );
+});
+
+/*search box will only show when mouse over*/
+$(document).ready(function () {
+    $("#searchWords").mouseenter(function () {
+        $(this).removeClass("beginingSearchWords");
+        $(this).addClass("searchWords").focus();
+    });
+    $("#searchWords").mouseleave(function () {
+        $(this).removeClass("searchWords");
+        $(this).addClass("beginingSearchWords").blur();
+    });
 
 });
 
 $(document).ready(function () {
     if (arrayThatHoldsAllTvShows_eachTvShowIsAnObject.length > 0) {
         $(".theMinusButton, .thePlusButton").animate({
-            bottom: "45%",
             marginRight: "0%",
             bottom: "5%",
         }, 1000)
@@ -77,7 +106,7 @@ $(document).ready(function () {
 
 /*details of the new tv show just entered*/
 function newTvShowDetails() {
-    $("#ulWraper").slideDown(500);
+    $("#ulWraper").slideDown(500)
     var name = $(".addTvShow input:nth(0)").val();;
     var season = $(".addTvShow select:nth(0)").val();
     var episode = $(".addTvShow select:nth(1)").val();
@@ -90,7 +119,7 @@ function cleanUpInputs() {
     $(".addTvShow input:nth(0)").val("");
     $(".addTvShow select:nth(0)").val("Season");
     $(".addTvShow select:nth(1)").val("Episod");
-    $(".addTvShow select:nth(2)").val("Score");
+    $(".addTvShow select:nth(2)").val("Rating");
 }
 
 /*this is what happens when you add a tv show*/
@@ -116,6 +145,8 @@ function turnItToStars(score) {
     } else if (score == "5 stars") {
         score = "*****";
         return score;
+    } else {
+        return score;
     }
 }
 
@@ -127,17 +158,18 @@ function addNewObjectToArray(obj) {
 
 /*add the new book to the list*/
 function addNewObjectToList(obj) {
-    score = turnItToStars(obj.score);
-    var newObj = new TvShowObject1(obj.name, obj.season, obj.episode, score)
-        /*"ul" will append a "li" and the "li" will append "6 divs" and "1 attribute"*/
-    $("ul.theListOfShows").append($("<li>").append(
-        $("<div>").text(newObj.name),
-        $("<div>").text(newObj.season),
-        $("<div>").text(newObj.episode),
-        $("<div>").text(newObj.score).css("fontSize", "28px"),
-        $("<div><input type='button' value='edit'></div>"),
-        $("<div><input type='button' value='delete'></div>")
-    ).attr("id", obj.id));
+    var score = turnItToStars(obj.score);
+    var newObj = new TvShowObject1(obj.name, obj.season, obj.episode, score);
+    /*"ul" will append a "li" and the "li" will append "6 divs" and "1 attribute"*/
+    var linkToMoreDetailsPage = $("<a>").text(newObj.name).attr("href", "details.html?whithBook=" + obj.id).attr("title", "click for more details");
+    var name = $("<div></div>").append(linkToMoreDetailsPage);
+    var season = $("<div>").text(newObj.season);
+    var episode = $("<div>").text(newObj.episode);
+    var score = $("<div>").text(newObj.score).css("fontSize", "28px");
+    var edit = $("<div><input type='button' value='edit'></div>");
+    var deleteLi = $("<div><input type='button' value='delete'></div>")
+    var theWholeLi = $("<li>").append(name, season, episode, score, edit, deleteLi).attr("id", obj.id);
+    $("ul.theListOfShows").append(theWholeLi);
 };
 
 /* delete button. to delete a tv show from list AND from array*/
@@ -203,12 +235,14 @@ function getNewValueOfTvShow_andReBuildList(thePlaceEventIsHppenig) {
     var episode = $("#" + id + " div:nth(2) input[type = text]").val();
     var score = $("#" + id + " div:nth(3) input[type = text]").val();
     changeExsistingTvShowDetailsInArray(id, name, season, episode, score);
-    reWriteListFromArray()
+    reWriteListFromArray(id, name, season, episode, score);
+
 }
+
 
 /*to re write the list of tv shows direct from array (used for local storge and if there was a edit done)*/
 function reWriteListFromArray() {
-    $(".theListOfShows").empty();
+    $(".theListOfShows ").empty();
     for (var i = 0; i < arrayThatHoldsAllTvShows_eachTvShowIsAnObject.length; i++) {
         addNewObjectToList(arrayThatHoldsAllTvShows_eachTvShowIsAnObject[i]);
     }
@@ -249,28 +283,28 @@ $(document).ready(function () {
 })
 
 $(document).ready(function () {
-    $(".sortListBy").change(function () {
-        if ($(".sortListBy").val() == "aFirst") {
+    $(".sortListBy ").change(function () {
+        if ($(this).val() == "aFirst") {
             arrayThatHoldsAllTvShows_eachTvShowIsAnObject.sort(compare)
-        } else if ($(".sortListBy").val() == "zFirst") {
+        } else if ($(".sortListBy ").val() == "zFirst") {
             arrayThatHoldsAllTvShows_eachTvShowIsAnObject.sort(compareBackwords)
-        } else if ($(".sortListBy").val() == "season") {
+        } else if ($(".sortListBy ").val() == "season") {
             arrayThatHoldsAllTvShows_eachTvShowIsAnObject.sort(function (a, b) {
                 return parseFloat(a.season) - parseFloat(b.season)
             })
-        } else if ($(".sortListBy").val() == "episode") {
+        } else if ($(".sortListBy ").val() == "episode") {
             arrayThatHoldsAllTvShows_eachTvShowIsAnObject.sort(function (a, b) {
                 return parseFloat(a.episode) - parseFloat(b.episode)
             })
-        } else if ($(".sortListBy").val() == "score") {
+        } else if ($(".sortListBy ").val() == "score") {
             arrayThatHoldsAllTvShows_eachTvShowIsAnObject.sort(function (b, a) {
                 return parseFloat(a.score) - parseFloat(b.score)
             })
-        } else if ($(".sortListBy").val() == "newest") {
+        } else if ($(".sortListBy ").val() == "newest") {
             arrayThatHoldsAllTvShows_eachTvShowIsAnObject.sort(function (a, b) {
                 return parseFloat(b.id) - parseFloat(a.id)
             })
-        } else if ($(".sortListBy").val() == "oldest") {
+        } else if ($(".sortListBy ").val() == "oldest") {
             arrayThatHoldsAllTvShows_eachTvShowIsAnObject.sort(function (a, b) {
                 return parseFloat(a.id) - parseFloat(b.id)
             })
@@ -278,6 +312,7 @@ $(document).ready(function () {
         reWriteListFromArray()
     })
 })
+
 
 function compare(a, b) {
     if (a.name < b.name)
