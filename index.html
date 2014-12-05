@@ -20,7 +20,7 @@
             </div>
             <div></div>
             <div>
-                <input type="text" id="searchWords" placeholder="search for TV show">
+                <input type="text" id="searchWords" class="beginingSearchWords" placeholder="search for TV show">
             </div>
         </div>
         <div class="addTvShow">
@@ -75,7 +75,7 @@
                 <option>30</option>
             </select>
             <select class="newTvShowInfo">
-                <option selected disabled>Score</option>
+                <option selected disabled>Rating</option>
                 <option>1 star</option>
                 <option>2 stars</option>
                 <option>3 stars</option>
@@ -83,7 +83,7 @@
                 <option>5 stars</option>
 
             </select>
-            <input class="newTvShowInfo" type="submit" value="add" id="addButton" >
+            <input type="submit" value="add" id="addButton">
         </div>
         <div class="listWraper">
             <div></div>
@@ -92,7 +92,7 @@
                     <div class="flex1">Name</div>
                     <div class="flex1">Season</div>
                     <div class="flex1">Episod</div>
-                    <div class="flex1">Score</div>
+                    <div class="flex1">Rating</div>
                     <div class="flex1"></div>
                     <div class="flex1">
                         <select class="sortListBy">
@@ -101,7 +101,7 @@
                             <option value="zFirst">z - a</option>
                             <option>season</option>
                             <option>episode</option>
-                            <option>score</option>
+                            <option value="score">rating</option>
                             <option value="newest">newest first</option>
                             <option value="oldest">oldest first</option>
 
