@@ -19,15 +19,18 @@ $(document).ready(function () {
     }
 })
 
+
 function addNewObjectToList(obj) {
-    var name = obj.name.toUpperCase()
+    var date = new Date(obj.id).toString();
+    var dateInShort = date.substring(0, 15)
+    var name = obj.name.toUpperCase();
     var linkToGoogel = $("<a>").attr("href", "https://www.google.co.il/?#q=" + obj.name + "+season+" + obj.season + "+episode+" + obj.episode).text("googel it").attr("target", "_blank");
     var linkToTrailer = $("<a>").attr("href", "https://www.youtube.com/results?search_query=" + obj.name + "+season+" + obj.season + "+episode+" + obj.episode + "+trailer").text("watch trailer").attr("target", "_blank");
     var name = $("<h1>").text(name);
     var season = $("<div>").text(obj.season);
     var episode = $("<div>").text(obj.episode);
     var score = $("<div>").text(obj.score);
-    var dateAdded = $("<div>");
+    var dateAdded = $("<div>").text(dateInShort).attr("title", date);
     var status = $("<div>");
     var details = $("<div>").append(linkToGoogel);
     var trailer = $("<div>").append(linkToTrailer);
